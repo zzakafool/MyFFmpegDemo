@@ -4,6 +4,7 @@
 extern "C" {
 #include <libavformat/avformat.h>
 #include <libavcodec/avcodec.h>
+#include <libavutil/hwcontext.h>
 }
 
 // 可以使用下面的命令进行显示
@@ -125,6 +126,7 @@ void hwdecode(std::string url) {
 
         // 设置get_format回调，在处理过程中codecCtx回触发，根据其返回的格式
         // 确认是否启用硬解，完成后codecCtx会创建hw_frames_ctx
+        // 如果设置了codecCtx->get_format则会忽视hw_device_ctx字段
         codecCtx->get_format = [](AVCodecContext *s, const AVPixelFormat *fmt) -> enum AVPixelFormat {
             if(s->opaque) {
                 auto pHwConfigs = static_cast<std::vector<const AVCodecHWConfig*> *>(s->opaque);
