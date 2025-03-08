@@ -67,7 +67,7 @@ void readNv12ToBuf(uint8_t *&buf, int &length, std::string srcNv12) {
 
     size_t bytes_read = fread(buf, 1, length, file);
     if (bytes_read != length) {
-        perror("Failed to read file");
+        av_log(NULL, AV_LOG_ERROR, "Failed to read file\n");
         free(buf);
         fclose(file);
         return;
