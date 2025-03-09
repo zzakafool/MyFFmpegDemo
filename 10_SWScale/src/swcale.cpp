@@ -75,11 +75,12 @@ void writeRGBAToFile(const AVFrame *frame, std::string dstRGBA) {
         bytes_write += frame->width * 4;
     }
 
-    av_log(NULL, AV_LOG_INFO, "write data : %d bytes\n", bytes_write);
+    av_log(NULL, AV_LOG_INFO, "write data : %zu bytes\n", bytes_write);
 
     fclose(file);
 }
 
+// 将nv12的图片转换成rgba格式
 void nv12toRGBA(std::string dst, std::string src) {
     SwsContext *swsCtx = sws_getContext(FRAME_WIDTH,      // 原始图像的宽度
                                         FRAME_HEIGHT,     // 原始图像的高度
